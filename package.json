@@ -1,0 +1,23 @@
+{
+  "name": "eksamen",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "mysass": "node-sass style/sass/style.scss style/css/style.css -w"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nhd54/Fundraiser.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nhd54/Fundraiser/issues"
+  },
+  "homepage": "https://github.com/nhd54/Fundraiser#readme",
+  "devDependencies": {
+    "node-sass": "^4.11.0"
+  },
+  "description": ""
+}

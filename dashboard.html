@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="style/css/style.css" />
+    <link rel="stylesheet" href="style/css/test.css">
+    <script src="https://www.gstatic.com/firebasejs/5.5.9/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.5.9/firebase-firestore.js"></script>
+    <title>Fundraiser - Dashboard</title>
+    <link rel="shortcut icon" href="image/favicon.png" type="image/x-icon"/>
+  </head>
+  <body>
+    <div id="wrapper">
+      <nav>
+       
+
+        <div class="accordion">
+            <div class="bar1"></div>
+            <div class="bar2"></div>
+            <div class="bar3"></div>
+          </div>
+        
+
+        <nav>    
+            <img src="image/logo.svg" alt="" />
+            <ul class="menu">
+                <li><img src="image/icon_oversigt.svg"> <a href="dashboard.html">OVERSIGT</a> </li>
+                <li><img src="image/icon_detaljer.svg"> <a href="details.html">DETALJER</a></li>
+                <li><img src="image/icon_settings.svg"> <a href="settings.html">INDSTILLINGER</a></li>
+                <li>
+                    <img src="image/icon_settings.svg" />
+                    <a href="admin.html">ADMIN</a>
+                  </li>
+              </ul>
+          </nav>
+
+       
+      </nav>
+      <article class="largeColumn" id="dashboard">
+        <header class="largeColumn">
+                <img src="image/icon_oversigt.svg" alt="" /><br>
+                <h1>FUNDRAISER <br> OVERSIGT</h1>
+        </header>
+        <section class="largeColumn donated">
+          <h1 class="largeColumn">DONERET I ALT</h1>
+          <div class="category smallColumnDb">
+            <img class="pengeDb" src="image/icon_penge_kategori.svg" alt="" /><br>PENGE<br> <p class="indsamlet"></p>
+          </div>
+          <div class="category smallColumnDb">
+            <img src="image/icon_tekstil_kategori.svg" alt="" /><br>TEXTIL & TILBEHØR<br>
+           <p> <span class="blanket"></span>, <span class="basket"></span>, <br>
+            <span class="cloth"></span>, <span class="toys"></span>, <br> 
+            <span class="dogblankets"></span> </p>
+           
+          </div>
+          <div class="category smallColumnDb">
+            <img src="image/icon_foder_donation.svg" alt="" /><br>FODER & PLEJE <br>
+            <p> <span class="hundefoder"></span>, <span class="hundegodbidder"></span>, <br>
+              <span class="loppekur"></span>, <span class="ormekur"></span>, <br> 
+              </p>
+          </div>
+        </section>
+        <section class="largeColumn donated" id="userDonation">
+                <h1 class="largeColumn">NYESTE DONATIONER</h1>
+                <div class="category smallColumnDb">
+                  <img src="image/icon_mand.svg" alt="" /><br> <p class="user"></p> 
+                </div>
+                <div class="category smallColumnDb">
+                  <img src="image/icon_mand.svg" alt="" /><br> <p class="user"></p> 
+                </div>
+                <div class="category smallColumnDb">
+                  <img src="image/icon_mand.svg" alt="" /><br> <p class="user"></p> 
+        </section>
+        <footer class="largeColumn"></footer>
+      </article>
+    </div>
+
+    
+  </body>
+<script src="app.js"></script>
+  <script> 
+
+    document.addEventListener("DOMContentLoaded", dashboardInit);
+
+  </script>
+</html>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Fundraiser - add admin</title>
+    <link rel="shortcut icon" href="image/favicon.png" type="image/x-icon" />
+    <script src="https://www.gstatic.com/firebasejs/5.5.9/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.5.9/firebase-firestore.js"></script>
+    <link rel="stylesheet" href="style/css/style.css" />
+  </head>
+  <body id="admin">
+    <div id="wrapper">
+      <nav>
+        <div class="accordion">
+          <div class="bar1"></div>
+          <div class="bar2"></div>
+          <div class="bar3"></div>
+        </div>
+
+        <nav>
+          <img src="image/logo.svg" alt="" />
+          <ul class="menu">
+            <li>
+              <img src="image/icon_oversigt.svg" />
+              <a href="dashboard.html">OVERSIGT</a>
+            </li>
+            <li>
+              <img src="image/icon_detaljer.svg" />
+              <a href="details.html">DETALJER</a>
+            </li>
+            <li>
+              <img src="image/icon_settings.svg" />
+              <a href="settings.html">INDSTILLINGER</a>
+            </li>
+            <li>
+              <img src="image/icon_settings.svg" />
+              <a href="settings.html">ADMIN</a>
+            </li>
+          </ul>
+        </nav>
+      </nav>
+      <article class="largeColumn mobileSetting" id="dashboard">
+        <header class="largeColumn">
+          <img src="image/icon_oversigt.svg" alt="" /><br />
+          <h1>
+            FUNDRAISER <br />
+            ADMIN
+          </h1>
+        </header>
+        <section class="settings">
+          <div id="profile">
+            <br />
+            <h3>TILFØJ NY ADMIN</h3>
+            <br /><br />
+            <h3>PERSONLIGE OPLYSNINGER</h3>
+            <br />
+
+            <form id="addAdmin">
+              <h3>NAVN</h3>
+              <input
+                class="navnW"
+                type="text"
+                name="firstname"
+                placeholder=""
+                required
+              />
+              <span class="settingsName"></span> <br />
+              <h3>EFTERNAVN</h3>
+              <span class="settingsLastName">
+                <input
+                  class="navnW"
+                  type="text"
+                  name="lastname"
+                  placeholder=""
+                  required/></span
+              ><br />
+              <h3>EMAIL</h3>
+              <span class="email"
+                ><input
+                  class="navnW"
+                  type="text"
+                  name="email"
+                  placeholder=""
+                  required
+              /></span>
+              <br /><br />
+              <h3>LOGIN</h3>
+              <br />
+              <h3>BRUGERNAVN</h3>
+              <span class="username"
+                ><input
+                  class="navnW"
+                  type="text"
+                  name="username"
+                  placeholder=""
+                  required
+              /></span>
+              <br />
+              <h3>PASSWORD</h3>
+              <span class="password"
+                ><input
+                  class="navnW"
+                  type="text"
+                  name="password"
+                  placeholder=""
+                  required
+              /></span>
+              <br />
+              <div class="bottomPos">
+                <button id="createAdmin">TILFØJ ADMIN</button>
+
+                <img class="settingsAvatar" src="image/icon_mand.svg" /> <br />
+                <p class="oprettet">ny adminstrator nu oprettet</p>
+              </div>
+            </form>
+          </div>
+        </section>
+
+        <footer class="largeColumn"></footer>
+      </article>
+    </div>
+
+    <script src="app.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", adminInit);
+    </script>
+  </body>
+</html>

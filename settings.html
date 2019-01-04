@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <script src="https://www.gstatic.com/firebasejs/5.5.9/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.5.9/firebase-firestore.js"></script>
+    <link rel="stylesheet" href="style/css/style.css" />
+    <title>Fundraiser - settings</title>
+    <link rel="shortcut icon" href="image/favicon.png" type="image/x-icon" />
+  </head>
+  <body>
+    <div id="wrapper">
+      <nav>
+        <div class="accordion">
+          <div class="bar1"></div>
+          <div class="bar2"></div>
+          <div class="bar3"></div>
+        </div>
+
+        <nav>
+          <img src="image/logo.svg" alt="" />
+          <ul class="menu">
+            <li>
+              <img src="image/icon_oversigt.svg" />
+              <a href="dashboard.html">OVERSIGT</a>
+            </li>
+            <li>
+              <img src="image/icon_detaljer.svg" />
+              <a href="details.html">DETALJER</a>
+            </li>
+            <li>
+              <img src="image/icon_settings.svg" />
+              <a href="settings.html">INDSTILLINGER</a>
+            </li>
+            <li>
+              <img src="image/icon_settings.svg" />
+              <a href="admin.html">ADMIN</a>
+            </li>
+          </ul>
+        </nav>
+      </nav>
+      <article class="largeColumn mobileSetting" id="dashboard">
+        <header class="largeColumn">
+          <img src="image/icon_oversigt.svg" alt="" /><br />
+          <h1>
+            FUNDRAISER <br />
+            INDSTILLINGER
+          </h1>
+        </header>
+        <section class="settings">
+          <div id="profile">
+            <h3>PROFIL</h3>
+            <br /><br />
+            <h3>PERSONLIGE OPLYSNINGER</h3>
+            <br />
+            <h3>NAVN</h3>
+            <span class="settingsName">mia</span>
+            <h3>EFTERNAVN</h3>
+            <span class="settingsLastName"> Svejgaard</span><br />
+            <h3>EMAIL</h3>
+            <span class="email">miasvejgaard@hotmail.com</span> <br /><br />
+            <h3>LOGIN</h3>
+            <br />
+            <h3>BRUGERNAVN</h3>
+            <span class="username">mia</span>
+            <h3>PASSWORD</h3>
+            <span class="password">280289#</span>
+            <div class="bottomPos">
+              <button>REDIGER PROFIL</button
+              ><img class="settingsAvatar" src="image/icon_mand.svg" />
+            </div>
+          </div>
+          <div id="fundraise">
+            <h3>FUNDRAISER DETALJER</h3>
+            <br /><br />
+            <h3>FUNDRAISER NAVN</h3>
+            <span class="support"></span> <br /><br />
+            <h3>BANKOPLYSNINGER</h3>
+            <br />
+
+            <h3>Kontonr</h3>
+            <span class="kontonr"></span><br /><br />
+            <h3>IBAN:</h3>
+            <span class="iban"></span>
+
+            <h3>SWIFT/BIC:</h3>
+            <span class="swift"></span>
+
+            <div class="bottomPos">
+              <button class="fundraiserButton">REDIGER PROFIL</button>
+            </div>
+          </div>
+        </section>
+        <section class="settings">
+          <div id="categories">
+            <div class="category smallColumnSettings">
+              <img class="penge" src="image/icon_penge_kategori.svg" alt="" />
+              <br />
+              <span>PENGE</span>
+            </div>
+            <div class="category smallColumnSettings">
+              <img
+                class="tekstil"
+                src="image/icon_tekstil_kategori.svg"
+                alt=""
+              />
+              <br />
+              <span>TEKSTIL & TILBEHØR</span>
+            </div>
+            <div class="category smallColumnSettings">
+              <img class="foder" src="image/icon_foder_donation.svg" alt="" />
+              <br />
+              <span>FODER & PLEJE</span>
+            </div>
+            <div class="bottomPos"><button>TILFØJ KATEGORI</button></div>
+          </div>
+          <div id="goals">
+            <div class="information">
+              MÅL<img src="image/icon_maal.svg" alt="" />
+              <span class="goal"></span>
+            </div>
+            <div class="information">
+              GEOGRAFI<img src="image/icon_jord.svg" alt="" />
+              <span class="geografi"></span>
+            </div>
+            <div class="information">
+              FUNDRAISER START<img src="image/icon_start.svg" alt="" />
+              <span class="start"></span>
+            </div>
+            <div class="information">
+              FUNDRAISER SLUT<img src="image/icon_dato.svg" alt="" />
+              <div class="slut"></div>
+            </div>
+            <div class="bottomPos"><button>REDIGER DETALJER</button></div>
+          </div>
+        </section>
+        <footer class="largeColumn"></footer>
+      </article>
+    </div>
+  </body>
+  <script src="app.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", settingInit);
+  </script>
+</html>

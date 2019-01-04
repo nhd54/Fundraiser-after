@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+    <script src="https://www.gstatic.com/firebasejs/5.5.9/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.5.9/firebase-firestore.js"></script>
+    <link rel="stylesheet" href="style/css/style.css" />
+    <title>Fundraiser - Login</title>
+    <link rel="shortcut icon" href="image/favicon.png" type="image/x-icon" />
+  </head>
+  <body id="login">
+    <div class="wrapper">
+      <div class="loginBox">
+        <img src="image/logo.svg" alt="" /><br />
+        <h2>Brugernavn</h2>
+        <input
+          class="pengePlacering"
+          type="text"
+          id="username"
+          placeholder=""
+        />
+        <br />
+        <h2>Password</h2>
+        <input
+          class="pengePlacering"
+          type="password"
+          id="password"
+          placeholder=""
+        />
+        <br />
+        <div class="bottomLogin">
+          <button id="loginButton">Login</button>
+          <p class="back">Gå tilbage til Fundraiser landingpage</p>
+          <br />
+          <br />
+          <p class="wrongPassword">
+            Brugernavn & Password matcher ikke overens
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script src="app.js"></script>
+  <script>
+    login();
+  </script>
+</html>

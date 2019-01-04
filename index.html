@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="style/css/style.css" />
+    <script src="https://www.gstatic.com/firebasejs/5.5.9/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.5.9/firebase-firestore.js"></script>
+    <title>Hjælp hund & Hjemløs - Fundraising</title>
+    <link rel="shortcut icon" href="image/favicon.png" type="image/x-icon"/>
+  </head>
+  <body>
+      <div class="popUp">
+          <div class="headerPopUp"><img src="image/logo.svg">
+          <button class="close">Luk vindue</button>
+          </div>
+          <form id="add-donation-form">
+            <div class="rightForm">
+            <div class="navnForm">Fornavn<br><input class="navnW" type="text" name="name" placeholder="" required /></div>
+            <div class="efternavnForm">Efternavn<br><input class="eNavnW" type="text" name="lastname" placeholder="" required /><br></div>
+            Email<br>
+            <input class="emailW" type="email" name="email" placeholder="" required/><br>
+            Landsdel<br>
+            <select name="country" class="minimallandW">
+                <option class="countryS" value="">Vælg Landsdel</option>
+              <option class="countryS" value="sjælland">Sjælland</option>
+              <option class="countryS" value="jylland">Jylland</option>
+              <option class="countryS" value="fyn">Fyn</option>
+            </select>
+            <br>
+            <input type="checkbox" name="anonym"> Giv anonym donation<br>
+          
+          <img src="image/donation1_img.jpg"></div>
+            <div class="leftForm"><img class="img" src="image/icon_penge_kategori.svg"><br><input class="pengePlacering" type="text" name="amount" placeholder="Indtast beløb i DKK" /><br>
+              <img class="kort" src="image/kort-01.jpg">
+    
+              <div id="betalingDropdown">
+                Kortholders fulde navn<br>
+                <input class="fuldNavn" type="text" name="fuldNavn" placeholder="" />
+                Kortnummer<br>
+                <input class="fuldNavn" type="number" name="kortNummer" placeholder="" />
+                Dato CCV<br>
+                <input class="dato" type="number" name="dato" placeholder="" />
+                
+                <input class="dato" type="text" name="CCV" placeholder="" />
+              </div>
+    
+            <img class="iconDonation" src="image/icon_tekstil_kategori.svg"><select class="minimalTekstil" name="textil">
+              <option value="">Vælg Tekstil & Tilbehør</option>
+              <option value="Tæpper">Tæpper</option>
+              <option value="Tøj">Tøj</option>
+              <option value="Hundedækken">Hundedækken</option>
+              <option value="Hundekurv">Hundekurv</option>
+              <option value="Tilbehør til hunde">Tilbehør til hunde</option>
+            </select><br>
+    
+            <img class="iconDonation" src="image/icon_foder_donation.svg"><select class="minimalFoder" name="pleje">
+              <option value="">Vælg Foder & Pleje</option>
+              <option value="Hundefoder"> Hundefoder </option>
+              <option value="Hundegodbidder">Hundegodbidder</option>
+              <option value="Loppekur">Loppekur</option>
+              <option value="Ormekur">Ormekur</option>
+            </select><br>
+          
+            </div>
+             <div class="footerPopUp">
+              <button id="giveDonation">GIV DONATION</button></div>
+            </form>
+
+            <div class="done">
+              <h2>Et kæmpe tak for din donation</h2>
+              <span>Du gør en forskel</span>
+              <img src="image/tak_img.jpg" alt="">
+              <div class="buttons">
+                  <button class="insta"><img src="image/some-02.svg"><div class="positionSome"> Del på<br> Instagram</div></button>
+                  <button class="fB"><img src="image/some-03.svg"><div class="positionSome"> Del på<br> Facebook</div></button>
+              </div>
+              
+              
+            </div>
+        </div>
+         
+        
+        <article>
+          <section class="largeColumn" id="wallPaper">
+            <img src="image/logo.svg" alt="" />
+          </section>
+          <section class="largeColumn" id="category">
+            <div class="categories smallColumn">
+              <img class="penge" src="image/icon_penge_kategori.svg" alt="" />
+              <br />
+              <span>PENGE</span>
+            </div>
+            <div class="categories smallColumn">
+              <img class="tekstil" src="image/icon_tekstil_kategori.svg" alt="" />
+              <br />
+              <span>TEKSTIL & TILBEHØR</span>
+            </div>
+            <div class="categories smallColumn">
+              <img class="foder" src="image/icon_foder_donation.svg" alt="" />
+              <br />
+              <span>FODER & PLEJE</span>
+            </div>
+          </section>
+          <section class="largeColumn" id="donation">
+            <div class="bigColumn" id="video">
+              <img class="video" src="image/video.jpg" alt="" />
+            </div>
+    
+            <div class="bigColumn" id="donator">
+              <button class="donation">GIV DONATION</button> <br />
+              <p>
+                  Hjælp Hund & Hjemløs er en fundraiser for de hjemløse og deres hunde i København. Hver vinter fryser og sulter flere dyr og mennesker på gaden. På denne side har du muligheden for at gøre en forskel, ved at donerer penge, tæpper, hundekurve, foder, fødevare og meget mere.
+                  Hver donation stor, som lille tæller og dit bidrag er en hjælp.</p><br>
+                  
+                  <p>Hjælp hund og hjemløs er en non-profit organisation, og alt overskud går ubeskåret til de hjemløse. Selv en lille donation kan gøre en stor forskel. 100 kr kan betale for hundemad i 14 dage eller til aftensmad i 5 dage. Et tæppe kan gøre forskellen mellem at skulle ligge på jorden, eller være beskyttet mod den direkte kulde.</p>
+                  <br>
+                  <p>Under giv donation finder du de forskellige kategorier, hvoraf du kan donerer flere ting på en gang. Tak for din støtte
+                  
+              </p>
+            </div>
+          </section>
+          <section class="largeColumn" id="donationInfo">
+            <div class="information">
+              MÅL<img src="image/icon_maal.svg" alt="" /> <p class="goal"></p>
+            </div>
+    
+            <div class="information">
+              INDSAMLET<img src="image/icon_penge.svg" alt="" /> <p class="indsamlet"></p>
+            </div>
+    
+            <div class="information">
+              SENESTE DONATION<img src="image/icon_mand.svg" alt="" /> <p class="person"></p>
+            </div>
+    
+            <div class="information">
+              TID TILBAGE<img src="image/icon_dato.svg" alt="" /> <p id="demo"></p>
+            </div>
+          </section>
+    
+          <section class="largeColumn" id="gallery">
+            <img class="imgIndex" src="image/img-04.jpg" alt="" />
+            <img class="imgIndex" src="image/img-01.jpg" alt="" />
+            <img class="imgIndex" src="image/img-02.jpg" alt="" />
+            <img class="imgIndex" src="image/img-03.jpg" alt="" />
+          </section>
+          <footerIndex class="largeColumn">
+            <h2>GET IN TOUCH</h2>
+            <p class="mail">HJÆLP@HUNDOGHJEMLØS.DK</p>
+            <h2>Phone <br>
+                +45 41441015</h2>
+            <div class="some">
+           
+                <a href="#"><img src="image/some-02.svg"></a>
+                <a href="#"><img src="image/some-03.svg"></a>
+            </div>
+        </div>
+          </footer>
+        </article>
+  </body>
+
+  <script src="app.js"></script>
+
+  <script>
+      document.addEventListener("DOMContentLoaded", indexInit);
+  </script>
+</html>

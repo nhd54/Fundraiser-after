@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <script src="https://www.gstatic.com/firebasejs/5.5.9/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.5.9/firebase-firestore.js"></script>
+
+    <link rel="stylesheet" href="style/css/style.css" />
+    <title>Fundraiser - Details</title>
+    <link rel="shortcut icon" href="image/favicon.png" type="image/x-icon" />
+  </head>
+  <body>
+    <div id="wrapper">
+      <nav>
+        <div class="accordion">
+          <div class="bar1"></div>
+          <div class="bar2"></div>
+          <div class="bar3"></div>
+        </div>
+
+        <nav>
+          <img src="image/logo.svg" alt="" />
+          <ul class="menu">
+            <li>
+              <img src="image/icon_oversigt.svg" />
+              <a href="dashboard.html">OVERSIGT</a>
+            </li>
+            <li>
+              <img src="image/icon_detaljer.svg" />
+              <a href="details.html">DETALJER</a>
+            </li>
+            <li>
+              <img src="image/icon_settings.svg" />
+              <a href="settings.html">INDSTILLINGER</a>
+            </li>
+            <li>
+              <img src="image/icon_settings.svg" />
+              <a href="admin.html">ADMIN</a>
+            </li>
+          </ul>
+        </nav>
+      </nav>
+
+      <article class="largeColumn mobileSetting" id="dashboard">
+        <header class="largeColumn">
+          <img src="image/icon_detaljer.svg" alt="" /><br />
+          <h1>
+            FUNDRAISER <br />
+            DETALJER
+          </h1>
+        </header>
+        <section class="largeColumn mobileSetting details">
+          <div id="time" class="bigColumn">
+            FUNDRAISER START <img src="image/icon_start.svg" alt="" />
+            <p class="start"></p>
+            FUNRAISER SLUT <img src="image/icon_dato.svg" alt="" />
+            <p class="end"></p>
+          </div>
+          <div id="country" class="biggerColumn">
+            <div class="kortInfo">
+              DONATION PR: LANDSDEL<br />
+              <h4><img src="image/kortfarve-01.jpg" />MEST DONERET</h4>
+            </div>
+            <div class="map"></div>
+            <div class="mapInfo">
+              <p>JYLLAND: <span class="kortSpan"></span></p>
+              <p>FYN & ØERNE: <span class="kortSpan"></span></p>
+              <p>SJÆLLAND: <span class="kortSpan"></span></p>
+            </div>
+          </div>
+        </section>
+        <section class="largeColumn mobileSetting details">
+          <div id="history" class="biggerColumn">
+            DONATIONS HISTORIE
+            <div id="overallDonations">
+              <strong>DKK</strong>
+              <div class="graph">
+                <div class="week"></div>
+                <div class="week"></div>
+                <div class="week"></div>
+                <div class="week"></div>
+                <div class="week"></div>
+                <div class="week"></div>
+                <div class="week"></div>
+                <div class="week"></div>
+                <div class="week"></div>
+                <div class="week"></div>
+              </div>
+              <strong>Uger</strong> <span>1</span> <span>2</span>
+              <span>3</span> <span>4</span> <span>5</span> <span>6</span>
+              <span>7</span> <span>8</span> <span>9</span> <span>10</span>
+            </div>
+          </div>
+          <div id="allDonation" class="bigColumn">
+            DONATER
+            <ul id="myList"></ul>
+          </div>
+        </section>
+        <footer class="largeColumn"></footer>
+      </article>
+    </div>
+    <script src="app.js"></script>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", init);
+
+      async function init() {
+        let headerData = await fetch("maps.html");
+        let header = await headerData.text();
+        document.querySelector(".map").innerHTML = header;
+
+        detailsInit();
+      }
+    </script>
+  </body>
+</html>

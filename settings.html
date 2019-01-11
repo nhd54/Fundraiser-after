@@ -11,6 +11,30 @@
     <link rel="shortcut icon" href="image/favicon.png" type="image/x-icon" />
   </head>
   <body>
+    <div class="profileForms">
+      Fornavn <input type="text" id="firstname" /> <br />
+      Efternavn <input type="text" id="lastname" /> <br />
+      Email <input type="text" id="email" /> <br />
+      Brugernavn <input type="text" id="username" /> <br />
+      Kodeord <input type="text" id="password" /> <br />
+      <button id="update">Rediger</button>
+    </div>
+    <div class="profileForms" id="fundraiseDetails">
+      Fundraiser navn <input type="text" id="inputFundraiser" /> <br />
+      konto nr <input type="text" id="inputKontonr" /> <br />
+      IBAN <input type="text" id="inputIban" /> <br />
+      SWIFT <input type="text" id="inputSwift" /> <br />
+
+      <button id="updateFundraise">Rediger</button>
+    </div>
+    <div class="profileForms" id="fundraiseGoals">
+      Goal <input type="text" id="goal" /> <br />
+      Geografi <input type="text" id="geografi" /> <br />
+      Start dato <input type="text" id="startDato" /> <br />
+      Slut dato <input type="text" id="slutDato" /> <br />
+
+      <button id="updateGoal">Rediger</button>
+    </div>
     <div id="wrapper">
       <nav>
         <div class="accordion">
@@ -68,7 +92,7 @@
             <h3>PASSWORD</h3>
             <span class="password">280289#</span>
             <div class="bottomPos">
-              <button>REDIGER PROFIL</button
+              <button id="redigerProfile">REDIGER PROFIL</button
               ><img class="settingsAvatar" src="image/icon_mand.svg" />
             </div>
           </div>
@@ -133,7 +157,9 @@
               FUNDRAISER SLUT<img src="image/icon_dato.svg" alt="" />
               <div class="slut"></div>
             </div>
-            <div class="bottomPos"><button>REDIGER DETALJER</button></div>
+            <div class="bottomPos">
+              <button id="updateGoals">REDIGER DETALJER</button>
+            </div>
           </div>
         </section>
         <footer class="largeColumn"></footer>

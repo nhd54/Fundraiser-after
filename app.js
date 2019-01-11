@@ -14,7 +14,7 @@ var config = {
 firebase.initializeApp(config);
 const db = firebase.firestore();
 db.settings({ timestampsInSnapshots: true });
-
+let email = document.querySelector(".emailW");
 const username = document.querySelector("#username");
 const password = document.querySelector("#password");
 const logonButton = document.querySelector("#loginButton");
@@ -222,266 +222,66 @@ function indexInit() {
       document.querySelector("#add-donation-form").style.display = "none";
       document.querySelector(".done").style.display = "grid";
       setTimeout(function() {
-        window.location.replace("index.html");
+        window.location.replace(
+          "mail.php?title=indsamling+hund+og+hjemløs+test&email=" +
+            email.value +
+            "&message=Tak for din donation"
+        );
       }, 10000);
     });
   });
 }
 
 function adminInit() {
-  let acc = document.getElementsByClassName("accordion");
-  var i;
-  for (i = 0; i < acc.length; i++) {
-    acc[i].addEventListener("click", function() {
-      this.classList.toggle("active");
-      let panel = document.querySelector(".menu");
-      if (panel.style.display === "block") {
-        panel.style.display = "none";
-      } else {
-        panel.style.display = "block";
-      }
+  if (sessionStorage.getItem("firstname") == null) {
+    window.location.href = "login.html";
+  } else {
+    let acc = document.getElementsByClassName("accordion");
+    var i;
+    for (i = 0; i < acc.length; i++) {
+      acc[i].addEventListener("click", function() {
+        this.classList.toggle("active");
+        let panel = document.querySelector(".menu");
+        if (panel.style.display === "block") {
+          panel.style.display = "none";
+        } else {
+          panel.style.display = "block";
+        }
+      });
+    }
+
+    adminForm.addEventListener("submit", e => {
+      e.preventDefault();
+
+      document.querySelector("#createAdmin").addEventListener("click", () => {
+        db.collection("users").add({
+          firstname: adminForm.firstname.value,
+          lastname: adminForm.lastname.value,
+          email: adminForm.email.value,
+          username: adminForm.username.value,
+          password: adminForm.password.value
+        });
+        (adminForm.firstname.value = " "),
+          (adminForm.lastname.value = " "),
+          (adminForm.email.value = " "),
+          (adminForm.username.value = " "),
+          (adminForm.password.value = " ");
+
+        document.querySelector(".oprettet").style.display = "block";
+      });
     });
   }
-
-  adminForm.addEventListener("submit", e => {
-    e.preventDefault();
-
-    document.querySelector("#createAdmin").addEventListener("click", () => {
-      db.collection("users").add({
-        firstname: adminForm.firstname.value,
-        lastname: adminForm.lastname.value,
-        email: adminForm.email.value,
-        username: adminForm.username.value,
-        password: adminForm.password.value
-      });
-      (adminForm.firstname.value = " "),
-        (adminForm.lastname.value = " "),
-        (adminForm.email.value = " "),
-        (adminForm.username.value = " "),
-        (adminForm.password.value = " ");
-
-      document.querySelector(".oprettet").style.display = "block";
-    });
-  });
 }
 
 function dashboardInit() {
-  db.collection("donations")
-    .get()
-    .then(snapshot => {
-      snapshot.docs.forEach(doc => {
-        donations.push(doc.data());
-      });
-      count();
-      test();
-      countTæpper();
-      countFood();
-
-      document.querySelector(".blanket").textContent =
-        blankets.length + " " + blankets[0];
-      document.querySelector(".basket").textContent =
-        basket.length + " " + basket[0];
-      document.querySelector(".toys").textContent = toys.length + " " + toys[0];
-      document.querySelector(".cloth").textContent =
-        cloth.length + " " + cloth[0];
-      document.querySelector(".dogblankets").textContent =
-        dogBlankets.length + " " + dogBlankets[0];
-
-      document.querySelector(".hundefoder").textContent =
-        hundefoder.length + " " + hundefoder[0];
-      document.querySelector(".hundegodbidder").textContent =
-        hundegodbidder.length + " " + hundegodbidder[0];
-      document.querySelector(".loppekur").textContent =
-        loppekur.length + " " + loppekur[0];
-      document.querySelector(".ormekur").textContent =
-        ormekur.length + " " + ormekur[0];
-    });
-
-  // med limits (kun 3 visning den nyeste )
-  db.collection("donations")
-    .orderBy("date", "desc")
-    .limit(3)
-    .get()
-    .then(snapshot => {
-      snapshot.docs.forEach(doc => {
-        top3.push(doc.data());
-      });
-
-      if (top3[0].amount.length == 0) {
-        console.log("undef");
-        nytest.children[1].children[2].innerHTML =
-          top3[0].firstname + "<br>" + top3[0].amount + top3[0].attend + " ";
-      } else if (top3[0].amount.length != 0) {
-        nytest.children[1].children[2].innerHTML =
-          top3[0].firstname +
-          "<br>" +
-          top3[0].amount +
-          " DKK " +
-          top3[0].attend +
-          " ";
-      }
-
-      if (top3[1].amount.length == 0) {
-        console.log("undef");
-        nytest.children[2].children[2].innerHTML =
-          top3[1].firstname +
-          "<br>" +
-          top3[1].amount +
-          top3[1].attend +
-          top3[1].textil;
-      } else if (top3[1].amount.length != 0) {
-        nytest.children[1].children[2].innerHTML =
-          top3[1].firstname +
-          "<br>" +
-          top3[1].amount +
-          " DKK " +
-          top3[1].attend +
-          top3[1].textil;
-      }
-
-      if (top3[2].amount.length == 0) {
-        console.log("undef");
-        nytest.children[3].children[2].innerHTML =
-          top3[2].firstname +
-          "<br>" +
-          top3[2].amount +
-          top3[2].attend +
-          " " +
-          top3[2].textil +
-          " ";
-      } else if (top3[2].amount.length != 0) {
-        nytest.children[3].children[2].innerHTML =
-          top3[2].firstname +
-          "<br>" +
-          top3[2].amount +
-          " DKK " +
-          top3[2].attend +
-          " " +
-          top3[2].textil +
-          " ";
-      }
-    });
-  console.log(document.querySelector("#userDonation"));
-
-  function countTæpper() {
-    donations.forEach(tæpper => {
-      if (tæpper.textil == "tæpper") {
-        blankets.push(tæpper.textil);
-      } else if (tæpper.textil == "tøj") {
-        cloth.push(tæpper.textil);
-      } else if (tæpper.textil == "hundedækken") {
-        dogBlankets.push(tæpper.textil);
-      } else if (tæpper.textil == "hundekurv") {
-        basket.push(tæpper.textil);
-      } else if (tæpper.textil == "tilbehør til hunde") {
-        toys.push(tæpper.textil);
-      }
-    });
-  }
-
-  function countFood() {
-    donations.forEach(food => {
-      console.log(food.attend);
-      if (food.attend == "hundefoder") {
-        hundefoder.push(food.attend);
-      } else if (food.attend == "hundegodbidder") {
-        hundegodbidder.push(food.attend);
-      } else if (food.attend == "loppekur") {
-        loppekur.push(food.attend);
-      } else if (food.attend == "ormekur") {
-        ormekur.push(food.attend);
-      }
-    });
-  }
-
-  function count() {
-    donations.forEach(amount => {
-      if (amount.amount > 0) {
-        fullAmount.push(amount.amount);
-      }
-    });
-  }
-
-  function test() {
-    fullAmount.forEach(sum => {
-      moneyAmount = sum + parseInt(fullAmount);
-    });
-    document.querySelector(".indsamlet").textContent = moneyAmount + " DKK";
-  }
-
-  let acc = document.getElementsByClassName("accordion");
-  var i;
-  for (i = 0; i < acc.length; i++) {
-    acc[i].addEventListener("click", function() {
-      this.classList.toggle("active");
-      let panel = document.querySelector(".menu");
-      if (panel.style.display === "block") {
-        panel.style.display = "none";
-      } else {
-        panel.style.display = "block";
-      }
-    });
-  }
-}
-
-function detailsInit() {
-  let acc = document.getElementsByClassName("accordion");
-  var i;
-  for (i = 0; i < acc.length; i++) {
-    acc[i].addEventListener("click", function() {
-      this.classList.toggle("active");
-      let panel = document.querySelector(".menu");
-      if (panel.style.display === "block") {
-        panel.style.display = "none";
-      } else {
-        panel.style.display = "block";
-      }
-    });
-
-    db.collection("fundraise")
-      .get()
-      .then(snapshot => {
-        snapshot.docs.forEach(doc => {
-          fundraiser.push(doc.data());
-        });
-        document.querySelector(".start").textContent = fundraiser[0].startDate;
-        document.querySelector(".end").textContent = fundraiser[0].endDate;
-      });
-
-    const donatelist = document.querySelector("#myList");
-
-    function renderDonation(doc) {
-      let li = document.createElement("li");
-      let name = document.createElement("span");
-      let amount = document.createElement("span");
-
-      name.textContent = doc.data().firstname;
-
-      if (doc.data().amount.length == 0) {
-        amount.textContent =
-          doc.data().amount + doc.data().textil + " " + doc.data().attend;
-      } else if (doc.data().amount.length != 0) {
-        amount.textContent =
-          doc.data().amount +
-          " DKK " +
-          doc.data().textil +
-          " " +
-          doc.data().attend;
-      }
-
-      li.appendChild(name);
-      li.appendChild(amount);
-
-      donatelist.appendChild(li);
-    }
-    db.collection("donations")
-      .orderBy("date", "desc")
-      .get()
-      .then(snapshot => {
-        snapshot.docs.forEach(doc => {
-          renderDonation(doc);
-        });
-      });
+  if (sessionStorage.getItem("firstname") == null) {
+    window.location.href = "login.html";
+  } else {
+    console.log(sessionStorage.getItem("firstname"));
+    console.log(sessionStorage.getItem("lastname"));
+    console.log(sessionStorage.getItem("email"));
+    console.log(sessionStorage.getItem("username"));
+    console.log(sessionStorage.getItem("password"));
 
     db.collection("donations")
       .get()
@@ -489,86 +289,452 @@ function detailsInit() {
         snapshot.docs.forEach(doc => {
           donations.push(doc.data());
         });
-        createCountry();
-        countCountry();
-        countDate();
+        count();
+        test();
+        countTæpper();
+        countFood();
 
-        document.querySelector(".graph").children[0].style.height =
-          week1.length + "%";
-        document.querySelector(".graph").children[1].style.height =
-          week2.length + "%";
-        document.querySelector(".graph").children[2].style.height =
-          week3.length + "%";
-        document.querySelector(".graph").children[3].style.height =
-          week4.length + "%";
-        document.querySelector(".graph").children[3].style.height =
-          week5.length + "%";
-        document.querySelector(".graph").children[3].style.height =
-          week6.length + "%";
-        document.querySelector(".graph").children[3].style.height =
-          week7.length + "%";
-        document.querySelector(".graph").children[3].style.height =
-          week8.length + "%";
-        document.querySelector(".graph").children[3].style.height =
-          week9.length + "%";
-        document.querySelector(".graph").children[3].style.height =
-          week10.length + "%";
+        document.querySelector(".blanket").textContent =
+          blankets.length + " " + blankets[0];
+        document.querySelector(".basket").textContent =
+          basket.length + " " + basket[0];
+        document.querySelector(".toys").textContent =
+          toys.length + " " + toys[0];
+        document.querySelector(".cloth").textContent =
+          cloth.length + " " + cloth[0];
+        document.querySelector(".dogblankets").textContent =
+          dogBlankets.length + " " + dogBlankets[0];
 
-        sum = fyn.length + jylland.length + sjaelland.length;
-
-        countFyn.textContent = Math.round((fyn.length / sum) * 100) + "%";
-        countJylland.textContent =
-          Math.round((jylland.length / sum) * 100) + "%";
-        countsjaelland.textContent =
-          Math.round((sjaelland.length / sum) * 100) + "%";
+        document.querySelector(".hundefoder").textContent =
+          hundefoder.length + " " + hundefoder[0];
+        document.querySelector(".hundegodbidder").textContent =
+          hundegodbidder.length + " " + hundegodbidder[0];
+        document.querySelector(".loppekur").textContent =
+          loppekur.length + " " + loppekur[0];
+        document.querySelector(".ormekur").textContent =
+          ormekur.length + " " + ormekur[0];
       });
+
+    // med limits (kun 3 visning den nyeste )
+    db.collection("donations")
+      .orderBy("date", "desc")
+      .limit(3)
+      .get()
+      .then(snapshot => {
+        snapshot.docs.forEach(doc => {
+          top3.push(doc.data());
+        });
+
+        if (top3[0].amount.length == 0) {
+          console.log("undef");
+          nytest.children[1].children[2].innerHTML =
+            top3[0].firstname + "<br>" + top3[0].amount + top3[0].attend + " ";
+        } else if (top3[0].amount.length != 0) {
+          nytest.children[1].children[2].innerHTML =
+            top3[0].firstname +
+            "<br>" +
+            top3[0].amount +
+            " DKK " +
+            top3[0].attend +
+            " ";
+        }
+
+        if (top3[1].amount.length == 0) {
+          console.log("undef");
+          nytest.children[2].children[2].innerHTML =
+            top3[1].firstname +
+            "<br>" +
+            top3[1].amount +
+            top3[1].attend +
+            top3[1].textil;
+        } else if (top3[1].amount.length != 0) {
+          nytest.children[1].children[2].innerHTML =
+            top3[1].firstname +
+            "<br>" +
+            top3[1].amount +
+            " DKK " +
+            top3[1].attend +
+            top3[1].textil;
+        }
+
+        if (top3[2].amount.length == 0) {
+          console.log("undef");
+          nytest.children[3].children[2].innerHTML =
+            top3[2].firstname +
+            "<br>" +
+            top3[2].amount +
+            top3[2].attend +
+            " " +
+            top3[2].textil +
+            " ";
+        } else if (top3[2].amount.length != 0) {
+          nytest.children[3].children[2].innerHTML =
+            top3[2].firstname +
+            "<br>" +
+            top3[2].amount +
+            " DKK " +
+            top3[2].attend +
+            " " +
+            top3[2].textil +
+            " ";
+        }
+      });
+    console.log(document.querySelector("#userDonation"));
+
+    function countTæpper() {
+      donations.forEach(tæpper => {
+        if (tæpper.textil == "tæpper") {
+          blankets.push(tæpper.textil);
+        } else if (tæpper.textil == "tøj") {
+          cloth.push(tæpper.textil);
+        } else if (tæpper.textil == "hundedækken") {
+          dogBlankets.push(tæpper.textil);
+        } else if (tæpper.textil == "hundekurv") {
+          basket.push(tæpper.textil);
+        } else if (tæpper.textil == "tilbehør til hunde") {
+          toys.push(tæpper.textil);
+        }
+      });
+    }
+
+    function countFood() {
+      donations.forEach(food => {
+        console.log(food.attend);
+        if (food.attend == "hundefoder") {
+          hundefoder.push(food.attend);
+        } else if (food.attend == "hundegodbidder") {
+          hundegodbidder.push(food.attend);
+        } else if (food.attend == "loppekur") {
+          loppekur.push(food.attend);
+        } else if (food.attend == "ormekur") {
+          ormekur.push(food.attend);
+        }
+      });
+    }
+
+    function count() {
+      donations.forEach(amount => {
+        if (amount.amount > 0) {
+          fullAmount.push(amount.amount);
+        }
+      });
+    }
+
+    function test() {
+      fullAmount.forEach(sum => {
+        moneyAmount = sum + parseInt(fullAmount);
+      });
+      document.querySelector(".indsamlet").textContent = moneyAmount + " DKK";
+    }
+
+    let acc = document.getElementsByClassName("accordion");
+    var i;
+    for (i = 0; i < acc.length; i++) {
+      acc[i].addEventListener("click", function() {
+        this.classList.toggle("active");
+        let panel = document.querySelector(".menu");
+        if (panel.style.display === "block") {
+          panel.style.display = "none";
+        } else {
+          panel.style.display = "block";
+        }
+      });
+    }
+  }
+}
+
+function detailsInit() {
+  if (sessionStorage.getItem("firstname") == null) {
+    window.location.href = "login.html";
+  } else {
+    let acc = document.getElementsByClassName("accordion");
+    var i;
+    for (i = 0; i < acc.length; i++) {
+      acc[i].addEventListener("click", function() {
+        this.classList.toggle("active");
+        let panel = document.querySelector(".menu");
+        if (panel.style.display === "block") {
+          panel.style.display = "none";
+        } else {
+          panel.style.display = "block";
+        }
+      });
+
+      db.collection("fundraise")
+        .get()
+        .then(snapshot => {
+          snapshot.docs.forEach(doc => {
+            fundraiser.push(doc.data());
+          });
+          document.querySelector(".start").textContent =
+            fundraiser[0].startDate;
+          document.querySelector(".end").textContent = fundraiser[0].endDate;
+        });
+
+      const donatelist = document.querySelector("#myList");
+
+      function renderDonation(doc) {
+        let li = document.createElement("li");
+        let name = document.createElement("span");
+        let amount = document.createElement("span");
+
+        name.textContent = doc.data().firstname;
+
+        if (doc.data().amount.length == 0) {
+          amount.textContent =
+            doc.data().amount + doc.data().textil + " " + doc.data().attend;
+        } else if (doc.data().amount.length != 0) {
+          amount.textContent =
+            doc.data().amount +
+            " DKK " +
+            doc.data().textil +
+            " " +
+            doc.data().attend;
+        }
+
+        li.appendChild(name);
+        li.appendChild(amount);
+
+        donatelist.appendChild(li);
+      }
+      db.collection("donations")
+        .orderBy("date", "desc")
+        .get()
+        .then(snapshot => {
+          snapshot.docs.forEach(doc => {
+            renderDonation(doc);
+          });
+        });
+
+      db.collection("donations")
+        .get()
+        .then(snapshot => {
+          snapshot.docs.forEach(doc => {
+            donations.push(doc.data());
+          });
+          createCountry();
+          countCountry();
+          countDate();
+
+          document.querySelector(".graph").children[0].style.height =
+            week1.length + "%";
+          document.querySelector(".graph").children[1].style.height =
+            week2.length + "%";
+          document.querySelector(".graph").children[2].style.height =
+            week3.length + "%";
+          document.querySelector(".graph").children[3].style.height =
+            week4.length + "%";
+          document.querySelector(".graph").children[4].style.height =
+            week5.length + "%";
+          document.querySelector(".graph").children[5].style.height =
+            week6.length + "%";
+          document.querySelector(".graph").children[6].style.height =
+            week7.length + "%";
+          document.querySelector(".graph").children[7].style.height =
+            week8.length + "%";
+          document.querySelector(".graph").children[8].style.height =
+            week9.length + "%";
+          document.querySelector(".graph").children[9].style.height =
+            week10.length + "%";
+
+          sum = fyn.length + jylland.length + sjaelland.length;
+
+          countFyn.textContent = Math.round((fyn.length / sum) * 100) + "%";
+          countJylland.textContent =
+            Math.round((jylland.length / sum) * 100) + "%";
+          countsjaelland.textContent =
+            Math.round((sjaelland.length / sum) * 100) + "%";
+        });
+    }
   }
 }
 
 function settingInit() {
-  let acc = document.getElementsByClassName("accordion");
-  var i;
-  for (i = 0; i < acc.length; i++) {
-    acc[i].addEventListener("click", function() {
-      this.classList.toggle("active");
-      let panel = document.querySelector(".menu");
-      if (panel.style.display === "block") {
-        panel.style.display = "none";
-      } else {
-        panel.style.display = "block";
-      }
-    });
+  console.log(sessionStorage.getItem("id"));
+
+  if (sessionStorage.getItem("firstname") == null) {
+    window.location.href = "login.html";
+  } else {
+    let acc = document.getElementsByClassName("accordion");
+    var i;
+    for (i = 0; i < acc.length; i++) {
+      acc[i].addEventListener("click", function() {
+        this.classList.toggle("active");
+        let panel = document.querySelector(".menu");
+        if (panel.style.display === "block") {
+          panel.style.display = "none";
+        } else {
+          panel.style.display = "block";
+        }
+      });
+    }
+
+    db.collection("users")
+      .get()
+      .then(snapshot => {
+        snapshot.docs.forEach(doc => {
+          users.push(doc.data());
+        });
+        document.querySelector(
+          ".settingsName"
+        ).textContent = sessionStorage.getItem("firstname");
+        document.querySelector(
+          ".settingsLastName"
+        ).textContent = sessionStorage.getItem("lastname");
+        document.querySelector(".email").textContent = sessionStorage.getItem(
+          "email"
+        );
+        document.querySelector(
+          ".username"
+        ).textContent = sessionStorage.getItem("username");
+        document.querySelector(
+          ".password"
+        ).textContent = sessionStorage.getItem("password");
+      });
+
+    db.collection("fundraise")
+      .get()
+      .then(snapshot => {
+        snapshot.docs.forEach(doc => {
+          fundraiser.push(doc.data());
+
+          document.querySelector("#fundraise").setAttribute("data-id", doc.id);
+          document.querySelector("#goals").setAttribute("data-id", doc.id);
+        });
+        document.querySelector(".support").textContent = fundraiser[0].name;
+        document.querySelector(".kontonr").textContent = fundraiser[0].Kontonr;
+        document.querySelector(".iban").textContent = fundraiser[0].IBAN;
+        document.querySelector(".swift").textContent = fundraiser[0].SWIFT;
+        document.querySelector(".goal").textContent =
+          fundraiser[0].goal + " DKK";
+        document.querySelector(".geografi").textContent = fundraiser[0].country;
+        document.querySelector(".start").textContent = fundraiser[0].startDate;
+        document.querySelector(".slut").textContent = fundraiser[0].endDate;
+      });
   }
 
-  db.collection("users")
-    .get()
-    .then(snapshot => {
-      snapshot.docs.forEach(doc => {
-        users.push(doc.data());
-      });
-      document.querySelector(".settingsName").textContent = users[0].firstname;
-      document.querySelector(".settingsLastName").textContent =
-        users[0].lastname;
-      document.querySelector(".email").textContent = users[0].email;
-      document.querySelector(".username").textContent = users[0].username;
-      document.querySelector(".password").textContent = users[0].password;
-    });
+  document.querySelector("#updateGoals").addEventListener("click", () => {
+    document.querySelector("#fundraiseGoals").style.display = "block";
 
-  db.collection("fundraise")
-    .get()
-    .then(snapshot => {
-      snapshot.docs.forEach(doc => {
-        fundraiser.push(doc.data());
+    document.querySelector("#goal").value = document.querySelector(
+      ".goal"
+    ).textContent;
+    document.querySelector("#geografi").value = document.querySelector(
+      ".geografi"
+    ).textContent;
+    document.querySelector("#startDato").value = document.querySelector(
+      ".start"
+    ).textContent;
+    document.querySelector("#slutDato").value = document.querySelector(
+      ".slut"
+    ).textContent;
+  });
+
+  document.querySelector("#updateGoal").addEventListener("click", () => {
+    db.collection("fundraise")
+      .doc(document.querySelector("#goals").getAttribute("data-id"))
+      .update({
+        goal: document.querySelector("#goal").value,
+        country: document.querySelector("#geografi").value,
+        startDate: document.querySelector("#startDato").value,
+        endDate: document.querySelector("#slutDato").value
       });
-      document.querySelector(".support").textContent = fundraiser[0].name;
-      document.querySelector(".kontonr").textContent = fundraiser[0].Kontonr;
-      document.querySelector(".iban").textContent = fundraiser[0].IBAN;
-      document.querySelector(".swift").textContent = fundraiser[0].swift;
-      document.querySelector(".goal").textContent = fundraiser[0].goal + " DKK";
-      document.querySelector(".geografi").textContent = fundraiser[0].country;
-      document.querySelector(".start").textContent = fundraiser[0].startDate;
-      document.querySelector(".slut").textContent = fundraiser[0].endDate;
-    });
+    setTimeout(function() {
+      window.location.href = "settings.html";
+    }, 1000);
+  });
+
+  document.querySelector("#redigerProfile").addEventListener("click", () => {
+    document.querySelector(".profileForms").style.display = "block";
+
+    document.querySelector("#firstname").value = sessionStorage.getItem(
+      "firstname"
+    );
+    document.querySelector("#lastname").value = sessionStorage.getItem(
+      "lastname"
+    );
+    document.querySelector("#email").value = sessionStorage.getItem("email");
+    document.querySelector("#username").value = sessionStorage.getItem(
+      "username"
+    );
+    document.querySelector("#password").value = sessionStorage.getItem(
+      "password"
+    );
+  });
+
+  document.querySelector(".fundraiserButton").addEventListener("click", () => {
+    document.querySelector("#fundraiseDetails").style.display = "block";
+
+    document.querySelector("#inputFundraiser").value = document.querySelector(
+      ".support"
+    ).textContent;
+    document.querySelector("#inputKontonr").value = document.querySelector(
+      ".kontonr"
+    ).textContent;
+    document.querySelector("#inputIban").value = document.querySelector(
+      ".iban"
+    ).textContent;
+    document.querySelector("#inputSwift").value = document.querySelector(
+      ".swift"
+    ).textContent;
+  });
+
+  document.querySelector("#updateFundraise").addEventListener("click", () => {
+    db.collection("fundraise")
+      .doc(document.querySelector("#fundraise").getAttribute("data-id"))
+      .update({
+        name: document.querySelector("#inputFundraiser").value,
+        Kontonr: document.querySelector("#inputKontonr").value,
+        IBAN: document.querySelector("#inputIban").value,
+        SWIFT: document.querySelector("#inputSwift").value
+      });
+    setTimeout(function() {
+      window.location.href = "settings.html";
+    }, 1000);
+  });
+
+  document.querySelector("#update").addEventListener("click", () => {
+    db.collection("users")
+      .doc(sessionStorage.getItem("id"))
+      .update({
+        firstname: document.querySelector("#firstname").value,
+        lastname: document.querySelector("#lastname").value,
+        email: document.querySelector("#email").value,
+        username: document.querySelector("#username").value,
+        password: document.querySelector("#password").value
+      });
+
+    sessionStorage.setItem(
+      "firstname",
+      document.querySelector("#firstname").value
+    );
+    sessionStorage.setItem(
+      "lastname",
+      document.querySelector("#lastname").value
+    );
+    sessionStorage.setItem("email", document.querySelector("#email").value);
+    sessionStorage.setItem(
+      "username",
+      document.querySelector("#username").value
+    );
+    sessionStorage.setItem(
+      "password",
+      document.querySelector("#password").value
+    );
+
+    window.location.href = "settings.html";
+  });
+}
+
+function mySessions(doc) {
+  sessionStorage.setItem("firstname", doc.data().firstname);
+  sessionStorage.setItem("lastname", doc.data().lastname);
+  sessionStorage.setItem("email", doc.data().email);
+  sessionStorage.setItem("username", doc.data().username);
+  sessionStorage.setItem("password", doc.data().password);
+  sessionStorage.setItem("id", doc.id);
+
+  window.location.href = "dashboard.html";
 }
 
 function login() {
@@ -577,30 +743,29 @@ function login() {
     .then(snapshot => {
       snapshot.docs.forEach(doc => {
         admins.push(doc.data());
+        logonButton.addEventListener("click", () => {
+          admins.forEach(admin => {
+            if (
+              username.value == doc.data().username &&
+              password.value == doc.data().password
+            ) {
+              mySessions(doc);
+              //console.log("vi er inde");
+
+              return;
+            } else if (
+              username.value != doc.data().username &&
+              password.value != doc.data().password
+            ) {
+              document.querySelector(".wrongPassword").style.display = "block";
+            }
+          });
+        });
       });
     });
 
   document.querySelector(".back").addEventListener("click", () => {
     window.location.href = "index.html";
-  });
-
-  logonButton.addEventListener("click", () => {
-    admins.forEach(admin => {
-      if (
-        username.value == admin.username &&
-        password.value == admin.password
-      ) {
-        window.location.href = "dashboard.html";
-        //console.log("vi er inde");
-
-        return;
-      } else if (
-        username.value != admin.username &&
-        password.value != admin.password
-      ) {
-        document.querySelector(".wrongPassword").style.display = "block";
-      }
-    });
   });
 }
 
